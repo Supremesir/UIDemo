@@ -16,6 +16,7 @@ import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     SeekBar seekBar;
     CheckBox checkBoxYuwen, checkBoxShuxue, checkBoxYingyu;
     RatingBar ratingBar;
+    String yuwen = "";
+    String shuxue = "";
+    String yingyu = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +112,44 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        checkBoxYuwen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    yuwen = "语文";
+                } else {
+                    yuwen = "";
+                }
+                display.setText(String.format("%s%s%s", yuwen, shuxue, yingyu));
+            }
+        });
+        checkBoxShuxue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    shuxue = "数学";
+                } else {
+                    shuxue = "";
+                }
+                display.setText(String.format("%s%s%s", yuwen, shuxue, yingyu));
+            }
+        });
+        checkBoxYingyu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    yingyu = "英语";
+                } else {
+                    yingyu = "";
+                }
+                display.setText(String.format("%s%s%s", yuwen, shuxue, yingyu));
+            }
+        });
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                Toast.makeText(MainActivity.this, String.valueOf(rating), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
