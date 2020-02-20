@@ -174,6 +174,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <RadioGroup
+        android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
