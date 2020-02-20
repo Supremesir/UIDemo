@@ -84,12 +84,13 @@ public class MainActivity extends AppCompatActivity {
                     s = "0";
                 }
                 progressBar.setProgress(Integer.valueOf(s),true);
+                display.setText(s);
             }
         });
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == 0) {
+                if (checkedId == R.id.radioButton) {
                     imageView.setImageResource(R.drawable.icon_android);
                 } else {
                     imageView.setImageResource(R.drawable.icon_apple);
@@ -148,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Toast.makeText(MainActivity.this, String.valueOf(rating), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, rating + "星评价！", Toast.LENGTH_SHORT).show();
             }
         });
     }
