@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    yuwen = String.valueOf(R.string.checkbox1);
+                    yuwen = getResources().getString(R.string.checkbox1);
                 } else {
                     yuwen = "";
                 }
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    shuxue = String.valueOf(R.string.checkbox2);
+                    shuxue = getResources().getString(R.string.checkbox2);
                 } else {
                     shuxue = "";
                 }
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    yingyu = String.valueOf(R.string.checkbox3);
+                    yingyu = getResources().getString(R.string.checkbox3);
                 } else {
                     yingyu = "";
                 }
