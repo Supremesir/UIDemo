@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.radioButton) {
+                if (checkedId == R.id.radioButton1) {
                     imageView.setImageResource(R.drawable.icon_android);
                 } else {
                     imageView.setImageResource(R.drawable.icon_apple);
