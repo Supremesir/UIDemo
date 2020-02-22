@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UIDemo</string>
+    <string name="ImageView1">image</string>
+    <string name="button_ensure">Confirm</string>
+    <string name="button_left">Left</string>
+    <string name="button_right">Right</string>
+    <string name="checkbox1">Chinese</string>
+    <string name="checkbox2">Math</string>
+    <string name="checkbox3">English</string>
+    <string name="display">TextView</string>
+    <string name="number_hint">Please input number</string>
+    <string name="radiobutton1">Android</string>
+    <string name="radiobutton2">Apple</string>
+    <string name="switch1">Switch</string>
+    <string name="close">Close</string>
+    <string name="open">Open</string>
+</resources>

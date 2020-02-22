@@ -69,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    display.setText("开");
+                    display.setText(R.string.open);
                 } else {
-                    display.setText("关");
+                    display.setText(R.string.close);
                 }
             }
         });
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    yuwen = "语文";
+                    yuwen = String.valueOf(R.string.checkbox1);
                 } else {
                     yuwen = "";
                 }
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    shuxue = "数学";
+                    shuxue = String.valueOf(R.string.checkbox2);
                 } else {
                     shuxue = "";
                 }
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    yingyu = "英语";
+                    yingyu = String.valueOf(R.string.checkbox3);
                 } else {
                     yingyu = "";
                 }
