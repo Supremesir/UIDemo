@@ -2,7 +2,7 @@ package com.supremesir.uidemo;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
+//import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     MyViewModel myViewModel;
 
     /**
-     * 保存textView状态
+     * 保存textView状态，当使用ViewModel时，不需要使用该方法保存状态
      * @param outState
      */
     @Override
@@ -69,8 +69,14 @@ public class MainActivity extends AppCompatActivity {
         checkBoxYingyu = findViewById(R.id.checkBox3);
         ratingBar = findViewById(R.id.ratingBar);
 
-        myViewModel = ViewModelProviders.of(this).get(MyViewModel.class);
+//        // ViewModelProviders已被弃用
+//        myViewModel = ViewModelProviders.of(this).get(MyViewModel.class);
 
+        myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
+
+
+        // 使用ViewModel的方式恢复状态
+        display.setText(String.valueOf(myViewModel.num));
 
         // 当存在保存的状态时，读取状态并显示其中的数据
         if (savedInstanceState != null) {
