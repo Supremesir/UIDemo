@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    final static String TAG = "my_log";
+
     TextView display;
     Button buttonLeft, buttonRight, buttonConfirm;
     Switch aSwitch;
@@ -33,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
     String yuwen = "";
     String shuxue = "";
     String yingyu = "";
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("KEY", display.getText().toString());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         checkBoxShuxue = findViewById(R.id.checkBox2);
         checkBoxYingyu = findViewById(R.id.checkBox3);
         ratingBar = findViewById(R.id.ratingBar);
+
+        if (savedInstanceState != null) {
+            String s = savedInstanceState.getString("KEY");
+            display.setText(s);
+        }
 
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,5 +166,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, rating + "星评价！", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+
+        Log.d(TAG, "onCreate: ");
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
     }
 }
