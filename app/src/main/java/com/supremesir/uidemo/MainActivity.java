@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
     String shuxue = "";
     String yingyu = "";
 
+    /**
+     * 保存textView状态
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -62,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         checkBoxYingyu = findViewById(R.id.checkBox3);
         ratingBar = findViewById(R.id.ratingBar);
 
+        // 当存在保存的状态时，读取状态并显示其中的数据
         if (savedInstanceState != null) {
             String s = savedInstanceState.getString("KEY");
             display.setText(s);
