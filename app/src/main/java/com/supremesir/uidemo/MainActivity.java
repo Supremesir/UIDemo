@@ -1,6 +1,8 @@
 package com.supremesir.uidemo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     String yuwen = "";
     String shuxue = "";
     String yingyu = "";
+    MyViewModel myViewModel;
 
     /**
      * 保存textView状态
@@ -66,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         checkBoxYingyu = findViewById(R.id.checkBox3);
         ratingBar = findViewById(R.id.ratingBar);
 
+        myViewModel = ViewModelProviders.of(this).get(MyViewModel.class);
+
+
         // 当存在保存的状态时，读取状态并显示其中的数据
         if (savedInstanceState != null) {
             String s = savedInstanceState.getString("KEY");
@@ -75,13 +81,15 @@ public class MainActivity extends AppCompatActivity {
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                display.setText(R.string.button_left);
+                ++myViewModel.num;
+                display.setText(String.valueOf(myViewModel.num));
             }
         });
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                display.setText(R.string.button_right);
+                myViewModel.num += 2;
+                display.setText(String.valueOf(myViewModel.num));
             }
         });
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

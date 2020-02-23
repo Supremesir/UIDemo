@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">UIDemo</string>
     <string name="display">TextView</string>
-    <string name="button_left">左</string>
-    <string name="button_right">右</string>
+    <string name="button_left" translatable="false">+1</string>
+    <string name="button_right" translatable="false">+2</string>
     <string name="switch1">开关</string>
     <string name="button_ensure">确定</string>
     <string name="number_hint">请输入数值</string>
