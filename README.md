@@ -1,2 +1,2 @@
 # Android UIDemo
-for learn
+Learn Android JetPack
