@@ -12,18 +12,18 @@ public class MyViewModelWithLiveData extends ViewModel {
 
     private MutableLiveData<Integer> likedNumber;
 
-
-    MyViewModelWithLiveData() {
+    // 构造函数也必须为public
+    public MyViewModelWithLiveData() {
         // 避免LikedNumber为空
-        likedNumber = new MutableLiveData<>();
-        likedNumber.setValue(0);
+        likedNumber = new MutableLiveData<>(0);
+//        likedNumber = new MutableLiveData<>();
+//        likedNumber.setValue(0);
     }
 
     public MutableLiveData<Integer> getLikedNumber() {
 //        // 懒加载，貌似有并发问题
-//        if (LikedNumber == null) {
-//            LikedNumber = new MutableLiveData<>();
-//            LikedNumber.setValue(0);
+//        if (likedNumber == null) {
+//            likedNumber = new MutableLiveData<>(0);
 //        }
         return likedNumber;
     }

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView display;
     Button buttonLeft, buttonRight, buttonConfirm;
-    ImageButton buttonThumbUp, getButtonThumbDown;
+    ImageButton buttonThumbUp, buttonThumbDown;
     Switch aSwitch;
     ProgressBar progressBar;
     EditText editText;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         buttonRight = findViewById(R.id.button2);
         buttonConfirm = findViewById(R.id.button3);
         buttonThumbUp = findViewById(R.id.imageButton);
-        buttonThumbUp = findViewById(R.id.imageButton2);
+        buttonThumbDown = findViewById(R.id.imageButton2);
         aSwitch = findViewById(R.id.switch1);
         progressBar = findViewById(R.id.progressBar3);
         editText = findViewById(R.id.editText2);
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         myViewModelWithLiveData.getLikedNumber().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                display.setText(format("LikedNum: ", String.valueOf(integer)));
+                display.setText(format("LikedNum: %s", String.valueOf(integer)));
             }
         });
 
@@ -114,14 +114,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // 使用LiveData的方式处理按键相应
+
         buttonThumbUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myViewModelWithLiveData.addLikedNumber(1);
             }
         });
-
-        getButtonThumbDown.setOnClickListener(new View.OnClickListener() {
+        buttonThumbDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myViewModelWithLiveData.addLikedNumber(-1);
