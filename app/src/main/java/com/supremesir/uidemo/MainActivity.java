@@ -1,6 +1,7 @@
 package com.supremesir.uidemo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 //import androidx.lifecycle.ViewModelProviders;
 
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
@@ -21,12 +23,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static java.lang.String.format;
+
 public class MainActivity extends AppCompatActivity {
 
     final static String TAG = "my_log";
 
     TextView display;
     Button buttonLeft, buttonRight, buttonConfirm;
+    ImageButton buttonThumbUp, getButtonThumbDown;
     Switch aSwitch;
     ProgressBar progressBar;
     EditText editText;
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     String shuxue = "";
     String yingyu = "";
     MyViewModel myViewModel;
+    MyViewModelWithLiveData myViewModelWithLiveData;
 
     /**
      * 保存textView状态，当使用ViewModel时，不需要使用该方法保存状态
@@ -58,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         buttonLeft = findViewById(R.id.button);
         buttonRight = findViewById(R.id.button2);
         buttonConfirm = findViewById(R.id.button3);
+        buttonThumbUp = findViewById(R.id.imageButton);
+        buttonThumbUp = findViewById(R.id.imageButton2);
         aSwitch = findViewById(R.id.switch1);
         progressBar = findViewById(R.id.progressBar3);
         editText = findViewById(R.id.editText2);
@@ -71,8 +79,15 @@ public class MainActivity extends AppCompatActivity {
 
 //        // ViewModelProviders已被弃用
 //        myViewModel = ViewModelProviders.of(this).get(MyViewModel.class);
-
         myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
+
+        myViewModelWithLiveData = new ViewModelProvider(this).get(MyViewModelWithLiveData.class);
+        myViewModelWithLiveData.getLikedNumber().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                display.setText(format("LikedNum: ", String.valueOf(integer)));
+            }
+        });
 
 
         // 使用ViewModel的方式恢复状态
@@ -88,16 +103,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ++myViewModel.num;
-                display.setText(String.valueOf(myViewModel.num));
+                display.setText(format("num: %s", String.valueOf(myViewModel.num)));
             }
         });
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myViewModel.num += 2;
-                display.setText(String.valueOf(myViewModel.num));
+                display.setText(format("num: %s", String.valueOf(myViewModel.num)));
             }
         });
+
+        buttonThumbUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myViewModelWithLiveData.addLikedNumber(1);
+            }
+        });
+
+        getButtonThumbDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myViewModelWithLiveData.addLikedNumber(-1);
+            }
+        });
+
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -154,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     yuwen = "";
                 }
-                display.setText(String.format("%s%s%s", yuwen, shuxue, yingyu));
+                display.setText(format("%s%s%s", yuwen, shuxue, yingyu));
             }
         });
         checkBoxShuxue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -165,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     shuxue = "";
                 }
-                display.setText(String.format("%s%s%s", yuwen, shuxue, yingyu));
+                display.setText(format("%s%s%s", yuwen, shuxue, yingyu));
             }
         });
         checkBoxYingyu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -176,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     yingyu = "";
                 }
-                display.setText(String.format("%s%s%s", yuwen, shuxue, yingyu));
+                display.setText(format("%s%s%s", yuwen, shuxue, yingyu));
             }
         });
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
