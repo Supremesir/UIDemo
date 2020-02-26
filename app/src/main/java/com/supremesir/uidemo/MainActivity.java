@@ -1,6 +1,7 @@
 package com.supremesir.uidemo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 //import androidx.lifecycle.ViewModelProviders;
@@ -23,23 +24,28 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.supremesir.uidemo.databinding.ActivityMainBinding;
+
 import static java.lang.String.format;
 
 public class MainActivity extends AppCompatActivity {
 
     final static String TAG = "my_log";
 
-    TextView display;
-    Button buttonLeft, buttonRight, buttonConfirm;
-    ImageButton buttonThumbUp, buttonThumbDown;
-    Switch aSwitch;
-    ProgressBar progressBar;
-    EditText editText;
-    RadioGroup radioGroup;
-    ImageView imageView;
-    SeekBar seekBar;
-    CheckBox checkBoxYuwen, checkBoxShuxue, checkBoxYingyu;
-    RatingBar ratingBar;
+    ActivityMainBinding binding;
+
+//    TextView display;
+//    Button buttonLeft, buttonRight, buttonConfirm;
+//    ImageButton buttonThumbUp, buttonThumbDown;
+//    Switch aSwitch;
+//    ProgressBar progressBar;
+//    EditText editText;
+//    RadioGroup radioGroup;
+//    ImageView imageView;
+//    SeekBar seekBar;
+//    CheckBox checkBoxYuwen, checkBoxShuxue, checkBoxYingyu;
+//    RatingBar ratingBar;
+
     String yuwen = "";
     String shuxue = "";
     String yingyu = "";
@@ -53,29 +59,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("KEY", display.getText().toString());
+        outState.putString("KEY", binding.textView.getText().toString());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        display = findViewById(R.id.textView);
-        buttonLeft = findViewById(R.id.button);
-        buttonRight = findViewById(R.id.button2);
-        buttonConfirm = findViewById(R.id.button3);
-        buttonThumbUp = findViewById(R.id.imageButton);
-        buttonThumbDown = findViewById(R.id.imageButton2);
-        aSwitch = findViewById(R.id.switch1);
-        progressBar = findViewById(R.id.progressBar3);
-        editText = findViewById(R.id.editText2);
-        radioGroup = findViewById(R.id.radioGroup1);
-        imageView = findViewById(R.id.imageView);
-        seekBar = findViewById(R.id.seekBar);
-        checkBoxYuwen = findViewById(R.id.checkBox1);
-        checkBoxShuxue = findViewById(R.id.checkBox2);
-        checkBoxYingyu = findViewById(R.id.checkBox3);
-        ratingBar = findViewById(R.id.ratingBar);
+//        setContentView(R.layout.activity_main);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+//        display = findViewById(R.id.textView);
+//        buttonLeft = findViewById(R.id.button);
+//        buttonRight = findViewById(R.id.button2);
+//        buttonConfirm = findViewById(R.id.button3);
+//        buttonThumbUp = findViewById(R.id.imageButton);
+//        buttonThumbDown = findViewById(R.id.imageButton2);
+//        aSwitch = findViewById(R.id.switch1);
+//        progressBar = findViewById(R.id.progressBar3);
+//        editText = findViewById(R.id.editText2);
+//        radioGroup = findViewById(R.id.radioGroup1);
+//        imageView = findViewById(R.id.imageView);
+//        seekBar = findViewById(R.id.seekBar);
+//        checkBoxYuwen = findViewById(R.id.checkBox1);
+//        checkBoxShuxue = findViewById(R.id.checkBox2);
+//        checkBoxYingyu = findViewById(R.id.checkBox3);
+//        ratingBar = findViewById(R.id.ratingBar);
 
 //        // ViewModelProviders已被弃用
 //        myViewModel = ViewModelProviders.of(this).get(MyViewModel.class);
@@ -85,86 +94,85 @@ public class MainActivity extends AppCompatActivity {
         myViewModelWithLiveData.getLikedNumber().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                display.setText(format("LikedNum: %s", String.valueOf(integer)));
+                binding.textView.setText(format("LikedNum: %s", String.valueOf(integer)));
             }
         });
 
 
         // 使用ViewModel的方式恢复状态
-        display.setText(String.valueOf(myViewModel.num));
+        binding.textView.setText(String.valueOf(myViewModel.num));
 
         // 当存在保存的状态时，读取状态并显示其中的数据
         if (savedInstanceState != null) {
             String s = savedInstanceState.getString("KEY");
-            display.setText(s);
+            binding.textView.setText(s);
         }
 
-        buttonLeft.setOnClickListener(new View.OnClickListener() {
+        binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ++myViewModel.num;
-                display.setText(format("num: %s", String.valueOf(myViewModel.num)));
+                binding.textView.setText(format("num: %s", String.valueOf(myViewModel.num)));
             }
         });
-        buttonRight.setOnClickListener(new View.OnClickListener() {
+        binding.button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myViewModel.num += 2;
-                display.setText(format("num: %s", String.valueOf(myViewModel.num)));
+                binding.textView.setText(format("num: %s", String.valueOf(myViewModel.num)));
             }
         });
 
         // 使用LiveData的方式处理按键相应
-
-        buttonThumbUp.setOnClickListener(new View.OnClickListener() {
+        binding.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myViewModelWithLiveData.addLikedNumber(1);
             }
         });
-        buttonThumbDown.setOnClickListener(new View.OnClickListener() {
+        binding.imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myViewModelWithLiveData.addLikedNumber(-1);
             }
         });
 
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    display.setText(R.string.open);
+                    binding.textView.setText(R.string.open);
                 } else {
-                    display.setText(R.string.close);
+                    binding.textView.setText(R.string.close);
                 }
             }
         });
-        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+        binding.button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = editText.getText().toString();
+                String s = binding.editText2.getText().toString();
                 // 判断字符串是否为空串，若是，置为0
                 if (TextUtils.isEmpty(s)) {
                     s = "0";
                 }
-                progressBar.setProgress(Integer.valueOf(s),true);
-                display.setText(s);
+                binding.progressBar3.setProgress(Integer.valueOf(s),true);
+                binding.textView.setText(s);
             }
         });
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        binding.radioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.radioButton1) {
-                    imageView.setImageResource(R.drawable.icon_android);
+                    binding.imageView.setImageResource(R.drawable.icon_android);
                 } else {
-                    imageView.setImageResource(R.drawable.icon_apple);
+                    binding.imageView.setImageResource(R.drawable.icon_apple);
                 }
             }
         });
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                display.setText(String.valueOf(progress));
+                binding.textView.setText(String.valueOf(progress));
             }
 
             @Override
@@ -177,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        checkBoxYuwen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.checkBox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -185,10 +193,10 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     yuwen = "";
                 }
-                display.setText(format("%s%s%s", yuwen, shuxue, yingyu));
+                binding.textView.setText(format("%s%s%s", yuwen, shuxue, yingyu));
             }
         });
-        checkBoxShuxue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -196,10 +204,10 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     shuxue = "";
                 }
-                display.setText(format("%s%s%s", yuwen, shuxue, yingyu));
+                binding.textView.setText(format("%s%s%s", yuwen, shuxue, yingyu));
             }
         });
-        checkBoxYingyu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.checkBox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -207,10 +215,10 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     yingyu = "";
                 }
-                display.setText(format("%s%s%s", yuwen, shuxue, yingyu));
+                binding.textView.setText(format("%s%s%s", yuwen, shuxue, yingyu));
             }
         });
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        binding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 Toast.makeText(MainActivity.this, rating + "星评价！", Toast.LENGTH_SHORT).show();
