@@ -14,6 +14,8 @@
     <string name="checkbox3">英语</string>
     <string name="open">开</string>
     <string name="close">关</string>
-    <string name="imageButton">imageButtonDescription</string>
+    <string name="imageButton" translatable="false">imageButtonDescription</string>
+    <string name="likedNumber">被赞次数:</string>
+
 
 </resources>

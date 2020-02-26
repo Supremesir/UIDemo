@@ -60,7 +60,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(likedNum.likedNumber)}"
+            android:text="@{@string/likedNumber + String.valueOf(likedNum.likedNumber)}"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"

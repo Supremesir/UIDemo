@@ -9,4 +9,5 @@
     <string name="switch1">Switch</string>
     <string name="close">Close</string>
     <string name="open">Open</string>
+    <string name="likedNumber">LikedNum:</string>
 </resources>
