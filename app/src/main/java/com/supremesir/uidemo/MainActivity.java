@@ -65,8 +65,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
 
+//        setContentView(R.layout.activity_main);
+        // 使用data binding的方式绑定页面布局
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
 //        display = findViewById(R.id.textView);
@@ -88,8 +89,11 @@ public class MainActivity extends AppCompatActivity {
 
 //        // ViewModelProviders已被弃用
 //        myViewModel = ViewModelProviders.of(this).get(MyViewModel.class);
+
+        // ViewModel
         myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
 
+        // ViewModel 和 LiveData
         myViewModelWithLiveData = new ViewModelProvider(this).get(MyViewModelWithLiveData.class);
         myViewModelWithLiveData.getLikedNumber().observe(this, new Observer<Integer>() {
             @Override
@@ -98,8 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        // 使用ViewModel的方式恢复状态
+        // 使用ViewModel的方式恢复存储的状态
         binding.textView.setText(String.valueOf(myViewModel.num));
 
         // 当存在保存的状态时，读取状态并显示其中的数据
