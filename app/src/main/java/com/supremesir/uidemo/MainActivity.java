@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     final static String TAG = "my_log";
 
-    ActivityMainBinding binding;
-
 //    TextView display;
 //    Button buttonLeft, buttonRight, buttonConfirm;
 //    ImageButton buttonThumbUp, buttonThumbDown;
@@ -51,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     String yingyu = "";
     MyViewModel myViewModel;
     MyViewModelWithLiveData myViewModelWithLiveData;
+    ActivityMainBinding binding;
 
     /**
      * 保存textView状态，当使用ViewModel时，不需要使用该方法保存状态
@@ -95,12 +94,17 @@ public class MainActivity extends AppCompatActivity {
 
         // ViewModel 和 LiveData
         myViewModelWithLiveData = new ViewModelProvider(this).get(MyViewModelWithLiveData.class);
-        myViewModelWithLiveData.getLikedNumber().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                binding.textView.setText(format("LikedNum: %s", String.valueOf(integer)));
-            }
-        });
+        // 为Data Binding绑定数据
+        binding.setLikedNum(myViewModelWithLiveData);
+        binding.setLifecycleOwner(this);
+
+//        // 采用Data Binding后，将数据绑定到layout文件中，不需要在Controller中为LiveData设置观察者
+//        myViewModelWithLiveData.getLikedNumber().observe(this, new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                binding.textView.setText(format("LikedNum: %s", String.valueOf(integer)));
+//            }
+//        });
 
         // 使用ViewModel的方式恢复存储的状态
         binding.textView.setText(String.valueOf(myViewModel.num));
@@ -126,19 +130,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 使用LiveData的方式处理按键相应
-        binding.imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myViewModelWithLiveData.addLikedNumber(1);
-            }
-        });
-        binding.imageButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myViewModelWithLiveData.addLikedNumber(-1);
-            }
-        });
+        // 使用Data Binding后，将按键相应绑定到layout文件中
+//        // 使用LiveData的方式处理按键相应
+//        binding.imageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                myViewModelWithLiveData.addLikedNumber(1);
+//            }
+//        });
+//        binding.imageButton2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                myViewModelWithLiveData.addLikedNumber(-1);
+//            }
+//        });
 
         binding.switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
